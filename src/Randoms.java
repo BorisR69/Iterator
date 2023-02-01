@@ -1,29 +1,30 @@
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 public class Randoms implements Iterable<Integer> {
     protected Random random;
+    int diff;
+    int minRandom;
 
     public Randoms(int min, int max) {
-        //...
+        diff = max - min;
+        minRandom = min;
+        random = new Random();
     }
 
     @Override
     public Iterator<Integer> iterator() {
-        return null;
+        return new Iterator<Integer>() {
+            @Override
+            public boolean hasNext() {
+                return true;
+            }
+            @Override
+            public Integer next() {
+                int i = random.nextInt(diff + 1);
+                i += minRandom;
+                return i;
+            }
+        };
     }
-
-    @Override
-    public void forEach(Consumer<? super Integer> action) {
-        Iterable.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<Integer> spliterator() {
-        return Iterable.super.spliterator();
-    }
-
-    //...
 }
